@@ -1,0 +1,45 @@
+/* style css */
+
+.container-fluid {
+    /* margin-left:80;
+    margin-right:80; 
+    min-width: 1500;
+    max-width: 1720; */
+    padding:40px;
+    width: 100%;
+    background-color:cornflowerblue;
+}
+
+.jumbotron {
+    background-color:rgb(46, 43, 43);
+}
+
+h1 {
+    color:white;
+    font-size: 3rem
+}
+h3 {
+    color: black;
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: darkgray;
+ }
+
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: lightgray;
+ }
+
+ .table-striped>thead>tr>td{
+     background-color:rgb(46,42,43);
+     /* text:white */
+ }
+
+ #line-chart {
+    max-width:900px;
+    margin-left: 35px auto;
+    margin-right: 35px auto;
+    }
