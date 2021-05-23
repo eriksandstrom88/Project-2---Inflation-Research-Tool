@@ -17,126 +17,223 @@
         <br/>
         <!-- <div class="container"> -->
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="row">
                     <h3>Add up to 5 series to analyze long-term trends</h3>
-                    <!-- <br/> -->
-                    <!-- <p>Placeholder for Line Chart</p> -->
                 </div>
                 <div class="row">
-                    <div id="area-datetime"></div>
-                    <!-- <img class="index_image1" src='assets/btc_v_ndaq.png' width="90%"> -->
-                </div>
-                <div class="row">
-                    <!-- <div id="filter-container"> -->
-                        <div class="col-md-5">
-                            <div class="row">
-                                <h3>Select Series:</h3>
+                    <div class="col-md-7">
+                        <!-- <div class="row">
+                            <h3>Add up to 5 series to analyze long-term trends</h3>
+                            <br/> -->
+                            <!-- <p>Placeholder for Line Chart</p>
+                        </div> -->
+                        <div class="row">
+                            <div id="line-chart">
+                                <div id="area-datetime"></div>
                             </div>
-                        <ul class="dropdown-data-selectors">
-                            <li>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <h3>Summary Statistics</h3>
+                        </div>
+                        <div class="row">
+                            <div id="sumstats1-table-area" class="">
+                                <table id="sumstats1-table" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: white" class="table-head">Series</th>
+                                            <th style="background-color: white" class="table-head">Start Value</th>
+                                            <th style="background-color: white" class="table-head">End Value</th>
+                                            <th style="background-color: white" class="table-head">Change</th>
+                                            <th style="background-color: white" class="table-head">Percent Change</th>
+                                            <th style="background-color: white" class="table-head">Min</th>
+                                            <th style="background-color: white" class="table-head">Max</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sumstats-table-1">
+                  
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="sumstats2-table-area" class="">
+                                <table id="sumstats2-table" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: white" class="table-head">Series</th>
+                                            <th style="background-color: white" class="table-head">Average Change</th>
+                                            <th style="background-color: white" class="table-head">Change Variance</th>
+                                            <th style="background-color: white" class="table-head">Change Std Dev</th>
+                                            <th style="background-color: white" class="table-head">Avg % Change</th>
+                                            <th style="background-color: white" class="table-head">% Change Variance</th>
+                                            <th style="background-color: white" class="table-head">% Change Std Dev</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sumstats-table-2">
+                  
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                </br>
+                <div class="row">
+                    <!-- TABLE GOES HERE -->
+                    <div class="col-md-2">
+                        <div class="row">
+                            <h3>Select Series:</h3>
+                        </div>
+                    </br>
+                        <div class="row">
+                            <ul class="dropdown-data-selectors">
+                                <li>
+                                    <div class="well">
+                                        <h5>Series 1:    <select id="selDataset1"></select></h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="well">
+                                        <h5>Series 2:    <select id="selDataset2"></option></select></h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="well">
+                                        <h5>Series 3:    <select id="selDataset3" selected="3"></select></h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="well">
+                                        <h5>Series 4:    <select id="selDataset4" selected="4"></select></h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="well">
+                                        <h5>Series 5:    <select id="selDataset5" selected="5"></select></h5>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!--ends selection table column -->
+                    <div class="col-md-10">
+                        <div id="selection-table-area" class="">
+                            <table id="selection-table" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: white" class="table-head">Index</th>
+                                        <th style="background-color: white" class="table-head">Series Name</th>
+                                        <th style="background-color: white" class="table-head">Units</th>
+                                        <th style="background-color: white" class="table-head">Interval</th>
+                                        <th style="background-color: white" class="table-head">Start Date</th>
+                                        <th style="background-color: white" class="table-head">End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="selection-table-body">
+              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!--ends container row for selection table -->
+            </div> <!--ends all line chart elements container column -->
+        </div> <!--ends all line chart elements row -->
+        </br>
+        </br>
+        </br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <!-- <div class="col-md-3"> -->
+                        <h3>Compare Two Series</h3>
+                    <!-- </div> -->
+                    <!-- <div class="col-md-9"></div> -->
+                </div>
+                </br>
+                <!-- </br> -->
+                <div class="row">     
+                    <div class="col-md-7">
+                        <!-- <div class="row">
+                            <h3>Compare Two Series</h3>
+                        </div> -->
+                        <div class="row">
+                            <div id="scatter"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                        </br>
+                            <div class="col-md-3">
                                 <div class="well">
-                                    <h5>Series 1:    <select id="selDataset1"></select></h5>
-                                    <!-- <select id="selDataset1"></select> -->
+                                    <h5>Scatter 1:    <select id="selDataset6"></select></h5>
                                 </div>
-                            </li>
-                            <li>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="well">
-                                    <h5>Series 2:    <select id="selDataset2"></option></select></h5>
-                                    <!-- <select id="selDataset2"></select> -->
+                                    <h5>Calc:    <select id="selDataset8"></select></h5>
                                 </div>
-                            </li>
-                            <li>
+                            </div>
+                            <div class="col-sm-2">
                                 <div class="well">
-                                    <h5>Series 3:    <select id="selDataset3" selected="3"></select></h5>
-                                    <!-- <select id="selDataset3"></select> -->
+                                    <h5>Lag:    <select id="selDataset10"></select></h5>
                                 </div>
-                            </li>
-                            <li>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
                                 <div class="well">
-                                    <h5>Series 4:    <select id="selDataset4" selected="4"></select></h5>
-                                    <!-- <select id="selDataset4"></select> -->
+                                    <h5>Scatter 2:    <select id="selDataset7"></select></h5>
                                 </div>
-                            </li>
-                            <li>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="well">
-                                    <h5>Series 5:    <select id="selDataset5" selected="5"></select></h5>
-                                    <!-- <select id="selDataset5"></select> -->
+                                    <h5>Calc:    <select id="selDataset9"></select></h5>
                                 </div>
-                            </li>
-                    <!-- </div>         -->
+                            </div>
+                            <div class="col-md-2">
+                                <div class="well">
+                                    <h5>Lag:    <select id="selDataset11"></select></h5>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <h3>Correlation of Scatter</h3>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div id="gauge"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class=row>
-                    
-                    <!-- <br/>
-                    <br/> -->
-                    <!-- <p>Placeholder for Scatter plot</p> -->
-                    <!-- <div class="row"> -->
-                        <h3>Compare Two Series</h3>
-                </div>
-                    <!-- </div> -->
-                    <!-- <br/>
-                    <br/> -->
-                <div class="row">
-                    <div id="scatter">
-                            
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column-md-6">
-                        <div class="row">
-                            <div class="well">
-                                <h5>Scatter 1:    <select id="selDataset6"></select></h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="well">
-                                <h5>Scatter 2:    <select id="selDataset7"></select></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column-md-2">
-                        <p>                                                   </p>
-                    </div>
-                    <div class="column-md-4">
-                        <div class="row">
-                            <div class="well">
-                                <h5><select id="selDataset8"></select></h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="well">
-                                <h5><select id="selDataset9"></select></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br/>
+        </div>
+
+                <!-- <br/>
                 <br/>
                 <div class="row">
-                    <!-- <div class="row"> -->
                         <h3>Correlation of Scatter</h3>
-                    <!-- </div> -->
+                </div>
                     <br/>
                     <br/>
                     <div class="row">
                         <div id="gauge">
 
                         </div>
-                        <!-- <img class="index_image1" src='assets/btc_v_ndaq.png'> -->
+                        <img class="index_image1" src='assets/btc_v_ndaq.png'>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
         <br/>
         <br/>
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-                <div id="table-area" class="">
+                <div id="index-table-area" class="">
                     <table id="index-table" class="table table-striped">
                         <thead>
                             <tr>
@@ -148,7 +245,7 @@
                                 <th style="background-color: white" class="table-head">End</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="index-table">
       
                         </tbody>
                     </table>

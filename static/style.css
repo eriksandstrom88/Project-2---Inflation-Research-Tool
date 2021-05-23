@@ -23,13 +23,20 @@ h3 {
     text-align: center;
 }
 
-.table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
+/* #area-datetime {
+   max-width:1050px; */
+   /* max-height: 700; */
+   /* margin-left: 35px auto;
+   margin-right: 35px auto;  */
+   /* } */
+
+#index-table>tr:nth-child(odd)>td, 
+#index-table>tbody>tr:nth-child(odd)>th {
    background-color: darkgray;
  }
 
-.table-striped>tbody>tr:nth-child(even)>td, 
-.table-striped>tbody>tr:nth-child(even)>th {
+#index-table>tr:nth-child(even)>td, 
+#index-table>tbody>tr:nth-child(even)>th {
    background-color: lightgray;
  }
 
@@ -38,8 +45,34 @@ h3 {
      /* text:white */
  }
 
- #line-chart {
-    max-width:900px;
-    margin-left: 35px auto;
-    margin-right: 35px auto;
-    }
+#sumstats-table-1>tr:nth-child(odd)>td, 
+#sumstats-table-1>tbody>tr:nth-child(odd)>th {
+   background-color: darkgray;
+ }
+
+ #sumstats-table-2>tr:nth-child(odd)>td, 
+#sumstats-table-2>tbody>tr:nth-child(odd)>th {
+   background-color: darkgray;
+}
+
+#sumstats-table-1>tr:nth-child(even)>td, 
+#sumstats-table-1>tbody>tr:nth-child(even)>th {
+   background-color: lightgray;
+}
+
+#sumstats-table-2>tr:nth-child(even)>td, 
+#sumstats-table-2>tbody>tr:nth-child(even)>th {
+   background-color: lightgray;
+ }
+
+ #selection-table-body>tr:nth-child(odd)>td, 
+#selection-table-body>tbody>tr:nth-child(odd)>th {
+   background-color: darkgray;
+ }
+
+#selection-table-body>tr:nth-child(even)>td, 
+#selection-table-body>tbody>tr:nth-child(even)>th {
+   background-color: lightgray;
+ }
+
+ 

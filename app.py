@@ -13,6 +13,7 @@ import psycopg2
 from flask_cors import CORS
 import scipy.stats as sts
 from scipy.stats import linregress
+import statistics
 # CORS(app)
 engine = create_engine("postgresql://postgres:postgres@localhost/Inflation")
 Base = automap_base()
@@ -179,46 +180,113 @@ table_classes = {'stocks_gold_daily':Stocks_gold_daily,
 
 app = Flask(__name__)
 CORS(app)
-# STATIC_URL = '/static'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'
 @app.route("/")
 def index():
-    #need to tell index what data to use
-    return render_template("index.html") #need additional arguments???
+    return render_template("index.html")
 
 @app.route("/api/<table_name>/<column_name>")
 def inflation_query(table_name, column_name):
     session=Session(engine)
-    # column_name = series_index[series]
-    # table_name = column_table_index[column_name]
     new_query = session.execute(f'select date, {column_name} from {table_name} where {column_name} is not null')
     session.close()
-    query_dates = []
-    query_values = []
+    y_values = []
+    stats = []
+    stats2 = []
     no_xy_list = []
-    xy_list = []
+    change_calc= []
+    pct_change_calc = []
     return_dict = {}
-    # xy_dict = {}
     for each_result in new_query:
         row=[each_col for each_col in each_result]
-        xy_dict = {}
         no_xy_list.append(row)
-        xy_dict['x']=f'{row[0]}'
-        xy_dict['y']=f'{row[1]}'
-        xy_list.append(xy_dict)
-    return_dict['xy']=xy_list
+        y_values.append(row[1])
+    for value in range(len(y_values)):
+        change = y_values[value]-y_values[value-1]
+        pct_change = change/y_values[value-1]
+        change_calc.append(change)
+        pct_change_calc.append(pct_change)
+    minimum = min(y_values)
+    maximum = max(y_values)
+    start_value = y_values[0]
+    end_value = y_values[-1]
+    total_change = end_value-start_value
+    percent_change = round((total_change/start_value)*100,4)
+    pct_change_calc = pct_change_calc[1:]
+    change_calc = change_calc[1:]
+    change_variance = round(statistics.variance(change_calc),4)
+    pct_change_variance = round(statistics.variance(pct_change_calc),4)
+    avg_change = round(statistics.mean(change_calc),4)
+    avg_pct_change = round(statistics.mean(pct_change_calc),4)
+    change_std = round(statistics.stdev(change_calc),4)
+    pct_change_std = round(statistics.stdev(pct_change_calc),4)
+    stats = [column_name, start_value, end_value, total_change, percent_change, minimum, maximum]
+    stats2 = [column_name, avg_change, change_variance, change_std, avg_pct_change, pct_change_variance, pct_change_std]
+    return_dict['stats'] = stats
+    return_dict['stats2'] = stats2
     return_dict['no_xy'] = no_xy_list
-        # xy_dict = {}
-    #     query_dates.append(f'{row[0]}')
-    #     query_values.append(row[1])
-    #     query_dict = dict(zip(query_dates,query_values))
     new_data = jsonify(return_dict)
-    return new_data #no_xy_list#, xy_list
+    return new_data
+
+@app.route("/sumtablezoom/<table_name>/<column_name>/<start_date>/<end_date>")
+def sumtablezoom_query(table_name, column_name, start_date, end_date):
+    session=Session(engine)
+    new_query = session.execute(f'select date, {column_name} from {table_name} where {column_name} is not null and date >= {start_date} and date <= {end_date}')
+    session.close()
+    y_values = []
+    stats = []
+    stats2 = []
+    change_calc= []
+    pct_change_calc = []
+    return_dict = {}
+    for each_result in new_query:
+        row=[each_col for each_col in each_result]
+        y_values.append(row[1])
+    for value in range(len(y_values)):
+        change = y_values[value]-y_values[value-1]
+        pct_change = change/y_values[value-1]
+        change_calc.append(change)
+        pct_change_calc.append(pct_change)
+    minimum = min(y_values)
+    maximum = max(y_values)
+    start_value = y_values[0]
+    end_value = y_values[-1]
+    total_change = end_value-start_value
+    percent_change = round((total_change/start_value)*100,4)
+    pct_change_calc = pct_change_calc[1:]
+    change_calc = change_calc[1:]
+    change_variance = round(statistics.variance(change_calc),4)
+    pct_change_variance = round(statistics.variance(pct_change_calc),4)
+    avg_change = round(statistics.mean(change_calc),4)
+    avg_pct_change = round(statistics.mean(pct_change_calc),4)
+    change_std = round(statistics.stdev(change_calc),4)
+    pct_change_std = round(statistics.stdev(pct_change_calc),4)
+    stats = [column_name, start_value, end_value, total_change, percent_change, minimum, maximum]
+    stats2 = [column_name, avg_change, change_variance, change_std, avg_pct_change, pct_change_variance, pct_change_std]
+    return_dict['stats'] = stats
+    return_dict['stats2'] = stats2
+    new_data = jsonify(return_dict)
+    return new_data
+
+@app.route("/scatter_api/<table_name>/<column_name>")
+def scatter_inflation_query(table_name, column_name):
+    session=Session(engine)
+    new_query = session.execute(f'select date, {column_name} from {table_name} where {column_name} is not null')# and date >= {start_date} and date <= {end_date}')
+    session.close()
+    no_xy_list = []
+    change_calc= []
+    pct_change_calc = []
+    return_dict = {}
+    for each_result in new_query:
+        row=[each_col for each_col in each_result]
+        no_xy_list.append(row)
+    return_dict['no_xy'] = no_xy_list
+    new_data = jsonify(return_dict)
+    return new_data
 
 @app.route("/correlation/<table6>/<column6>/<table7>/<column7>")
 def calc_corr_coef(table6,column6,table7,column7):
     session=Session(engine)
-    corr_query = session.execute(f'select date, {column6} from {table6} where {column6} is not null')
+    corr_query = session.execute(f'select date, {column6} from {table6} where {column6} is not null ')
     corr_query2 = session.execute(f'select date, {column7} from {table7} where {column7} is not null')
     session.close()
     corr_query_dates=[]
@@ -246,6 +314,38 @@ def calc_corr_coef(table6,column6,table7,column7):
     corr_coef_dict['corr_coef']=corr_coef[0]
     new_corr_coef = jsonify(corr_coef_dict)
     return new_corr_coef
+
+@app.route("/correlationupdate/<table6>/<column6>/<table7>/<column7>/<start_date>/<end_date>")
+def update_corr_coef(table6,column6,table7,column7, start_date, end_date):
+    session=Session(engine)
+    corr_query = session.execute(f'select date, {column6} from {table6} where {column6} is not null and date >= {start_date} and date <= {end_date}')
+    corr_query2 = session.execute(f'select date, {column7} from {table7} where {column7} is not null and date >= {start_date} and date <= {end_date}')
+    session.close()
+    corr_query_dates=[]
+    corr_query2_dates=[]
+    corr_query_values=[]
+    corr_query2_values=[]
+    corr_coef_dict = {}
+    for each_result in corr_query:
+        row=[each_col for each_col in each_result]
+        corr_query_dates.append(row[0])
+        corr_query_values.append(row[1])
+    for each_result in corr_query2:
+        row=[each_col for each_col in each_result]
+        corr_query2_dates.append(row[0])
+        corr_query2_values.append(row[1])
+    corr_dict = {'Date':corr_query_dates,
+                'value1':corr_query_values}
+    corr2_dict = {'Date':corr_query2_dates,
+                'value2':corr_query2_values}
+    corr_df = pd.DataFrame(corr_dict)
+    corr2_df = pd.DataFrame(corr2_dict)
+    merged_df = corr_df.merge(corr2_df, how='outer', on='Date')
+    merged_df = merged_df.set_index('Date').sort_values('Date')
+    corr_coef = sts.pearsonr(merged_df['value1'], merged_df['value2'])
+    corr_coef_dict['corr_coef']=corr_coef[0]
+    updated_corr_coef = jsonify(corr_coef_dict)
+    return updated_corr_coef
     
 if __name__ == "__main__":
     app.run(debug = True)
