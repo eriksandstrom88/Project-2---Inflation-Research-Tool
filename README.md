@@ -3,6 +3,13 @@
 
 This project is the culmination of three projects for the University of Denver's Data Analytics Bootcamp, and I intend to continue to add to it and use it in my own research for the forseeable future.  For a running list of features and improvements I would like to add, please scroll to the very bottom of this ReadMe.
 
+TECHNOLOGIES USED
+- Python (Flask, SK-Learn, Pandas, Matplotlib, Numpy, SQLAlchemy)
+- Javascript (D3.js)
+- HTML5 (Bootstrap)
+- CSS
+- PostgreSQL
+
 I wanted to create a tool for economists like me to be able to analyze data acquired from the St. Louis Federal Reserve's Federal Reserve Economic Data (FRED) API.
 
 The tool includes a line chart for visualizing time series economic data, and corresponding summary statistics tables.  The user can choose up to 5 data series to visualize on the chart using dropdowns.  The numbers in the dropdowns correspond to the index table at the bottom of the page.  The summary statistics tables are responsive to changing data selections, as well as to the user zooming in on a certain time interval for a closer look.
